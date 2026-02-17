@@ -267,7 +267,7 @@ const Index = () => {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b">
         <div className="container flex items-center justify-between h-16">
           <button onClick={() => scrollTo("hero")} className="flex items-center">
-            <img src="https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/bucket/67d94fb4-6d2a-4f2d-99da-348ffcfd39a0.jpeg" alt="БазаУпаковки" className="h-10 w-auto object-contain" />
+            <img src="https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/bucket/ce1313e7-8fce-49b8-9266-e59fcda5b35d.png" alt="БазаУпаковки" className="h-12 w-auto object-contain" />
           </button>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -592,7 +592,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t py-8">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
-          <img src="https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/bucket/67d94fb4-6d2a-4f2d-99da-348ffcfd39a0.jpeg" alt="БазаУпаковки" className="h-8 w-auto object-contain" />
+          <img src="https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/bucket/ce1313e7-8fce-49b8-9266-e59fcda5b35d.png" alt="БазаУпаковки" className="h-10 w-auto object-contain" />
           <p className="text-sm text-muted-foreground">© 2025 БазаУпаковки. Оптовые поставки упаковочных материалов в Уфе.</p>
           <a href="tel:+79991234567" className="text-sm font-medium text-foreground">+7 (999) 123-45-67</a>
         </div>
