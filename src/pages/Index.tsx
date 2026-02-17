@@ -266,8 +266,8 @@ const Index = () => {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b">
         <div className="container flex items-center justify-between h-16">
-          <button onClick={() => scrollTo("hero")} className="flex items-center">
-            <img src="https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/bucket/7f8138a0-03e4-466c-b622-001788c32d90.png" alt="БазаУпаковки" className="h-10 w-auto object-contain" />
+          <button onClick={() => scrollTo("hero")} className="flex items-center h-10 overflow-hidden">
+            <img src="https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/bucket/aab6f932-5b2b-427f-897c-a6d9bea9ab4c.png" alt="БазаУпаковки" className="h-[250%] w-auto object-contain" />
           </button>
 
           <nav className="hidden md:flex items-center gap-8">
