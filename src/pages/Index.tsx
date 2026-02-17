@@ -413,49 +413,45 @@ const Index = () => {
             ))}
           </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Product Grid — compact 2-column horizontal cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {filteredProducts.map((product) => (
               <button
                 key={product.id}
                 onClick={() => openProduct(product)}
-                className="group text-left bg-card rounded-xl border overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group text-left bg-card rounded-xl border overflow-hidden hover:shadow-lg transition-all duration-200 flex h-[140px]"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                <div className="relative w-[140px] flex-shrink-0 overflow-hidden bg-muted">
                   <img
                     src={product.image}
                     alt={product.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {product.badge && (
-                    <Badge className="absolute top-3 left-3 bg-kraft text-white border-0 shadow-md">
+                    <Badge className="absolute top-2 left-2 bg-kraft text-white border-0 shadow text-[10px] px-1.5 py-0.5">
                       {product.badge}
                     </Badge>
                   )}
-                  {product.inStock && (
-                    <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-xs font-medium text-green-700">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                      В наличии
-                    </div>
-                  )}
                 </div>
-                <div className="p-5">
-                  <p className="text-xs font-medium text-kraft uppercase tracking-wider mb-1.5">
-                    {product.category}
-                  </p>
-                  <h3 className="font-semibold text-foreground text-lg mb-2 leading-snug">
-                    {product.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {product.shortDesc}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-muted-foreground">
-                      {product.minOrder}
-                    </span>
-                    <span className="flex items-center gap-1 text-sm text-navy font-medium group-hover:text-kraft transition-colors">
+                <div className="p-4 flex flex-col justify-between flex-1 min-w-0">
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <p className="text-[10px] font-semibold text-kraft uppercase tracking-wider">{product.category}</p>
+                      {product.inStock && (
+                        <span className="flex items-center gap-1 text-[10px] font-medium text-green-700 flex-shrink-0">
+                          <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
+                          В наличии
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-foreground text-sm leading-snug mb-1 line-clamp-1">{product.title}</h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{product.shortDesc}</p>
+                  </div>
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="text-[11px] text-muted-foreground">{product.minOrder}</span>
+                    <span className="flex items-center gap-1 text-xs text-navy font-medium group-hover:text-kraft transition-colors flex-shrink-0">
                       Подробнее
-                      <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform" />
+                      <Icon name="ArrowRight" size={12} className="group-hover:translate-x-1 transition-transform" />
                     </span>
                   </div>
                 </div>
