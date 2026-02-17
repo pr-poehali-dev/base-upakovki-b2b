@@ -324,7 +324,7 @@ const Index = () => {
                 Получить оптовый прайс
                 <Icon name="ArrowRight" size={18} className="ml-2" />
               </Button>
-              <Button onClick={() => scrollTo("catalog")} size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-base px-8">
+              <Button onClick={() => scrollTo("catalog")} size="lg" className="bg-white text-navy hover:bg-white/90 text-base px-8">
                 Смотреть каталог
               </Button>
             </div>
@@ -538,7 +538,7 @@ const Index = () => {
           <p className="text-white/60 mb-8 max-w-lg mx-auto">Оставьте заявку — менеджер свяжется в течение 15 минут, рассчитает объём и подготовит индивидуальное предложение.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button onClick={() => setModal("price")} size="lg" className="bg-kraft hover:bg-kraft/90 text-white text-base px-8">Получить прайс</Button>
-            <Button onClick={() => setModal("kp")} size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-base px-8">Запросить КП</Button>
+            <Button onClick={() => setModal("kp")} size="lg" className="bg-white text-navy hover:bg-white/90 text-base px-8">Запросить КП</Button>
           </div>
         </div>
       </section>
