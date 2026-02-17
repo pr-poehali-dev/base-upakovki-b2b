@@ -3,6 +3,7 @@ import Icon from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,204 @@ import {
 
 const HERO_IMG =
   "https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/files/c6fc38c8-b09e-4862-bba8-8e229294752f.jpg";
+const IMG_STRETCH =
+  "https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/files/60bcaf91-9e5d-4dfc-bd78-58cc1838a69b.jpg";
+const IMG_TAPE =
+  "https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/files/69537a55-2daa-4cf4-b94f-3a60292f6bba.jpg";
+const IMG_BOXES =
+  "https://cdn.poehali.dev/projects/2206beb0-7a48-49d6-9edc-f35e752f9cf2/files/7335d65f-92bd-46a4-98d3-e0fdf1c82989.jpg";
+
+type Product = {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  badge?: string;
+  shortDesc: string;
+  specs: { label: string; value: string }[];
+  variants: string[];
+  minOrder: string;
+  inStock: boolean;
+};
+
+const products: Product[] = [
+  {
+    id: "stretch-manual-20",
+    title: "Стретч-плёнка ручная 2.0 кг",
+    category: "Стретч-плёнка",
+    image: IMG_STRETCH,
+    badge: "Хит продаж",
+    shortDesc: "Универсальная ручная плёнка для палетной и штучной обмотки",
+    specs: [
+      { label: "Вес нетто", value: "2.0 кг" },
+      { label: "Толщина", value: "20 мкм" },
+      { label: "Ширина", value: "500 мм" },
+      { label: "Намотка", value: "200–220 м" },
+      { label: "Втулка", value: "Ø 50 мм" },
+      { label: "Растяжение", value: "до 300%" },
+    ],
+    variants: ["1.8 кг / 17 мкм", "2.0 кг / 20 мкм", "2.5 кг / 23 мкм"],
+    minOrder: "от 1 упаковки (6 рулонов)",
+    inStock: true,
+  },
+  {
+    id: "stretch-machine",
+    title: "Стретч-плёнка машинная",
+    category: "Стретч-плёнка",
+    image: IMG_STRETCH,
+    shortDesc: "Для автоматических паллетоупаковщиков, высокая предварительная растяжка",
+    specs: [
+      { label: "Вес нетто", value: "16 кг" },
+      { label: "Толщина", value: "23 мкм" },
+      { label: "Ширина", value: "500 мм" },
+      { label: "Намотка", value: "1500+ м" },
+      { label: "Втулка", value: "Ø 76 мм" },
+      { label: "Растяжение", value: "до 400%" },
+    ],
+    variants: ["17 мкм / Эконом", "20 мкм / Стандарт", "23 мкм / Премиум"],
+    minOrder: "от 1 ролла",
+    inStock: true,
+  },
+  {
+    id: "stretch-jumbo",
+    title: "Джамбо-ролл стретч-плёнки",
+    category: "Джамбо-роллы",
+    image: IMG_STRETCH,
+    shortDesc: "Сырьё для перемотки, минимальная цена за кг при крупных объёмах",
+    specs: [
+      { label: "Вес нетто", value: "16–25 кг" },
+      { label: "Толщина", value: "17–23 мкм" },
+      { label: "Ширина", value: "500 мм" },
+      { label: "Намотка", value: "от 1500 м" },
+      { label: "Втулка", value: "Ø 76 мм" },
+      { label: "Назначение", value: "Под перемотку" },
+    ],
+    variants: ["17 мкм", "20 мкм", "23 мкм"],
+    minOrder: "от 1 палеты (42 ролла)",
+    inStock: true,
+  },
+  {
+    id: "tape-43",
+    title: "Скотч упаковочный 43 мкм",
+    category: "Клейкая лента",
+    image: IMG_TAPE,
+    badge: "Популярный",
+    shortDesc: "Оптимальное соотношение цены и клеящей способности для стандартных задач",
+    specs: [
+      { label: "Толщина", value: "43 мкм" },
+      { label: "Ширина", value: "48 мм" },
+      { label: "Намотка", value: "66 м / 132 м / 200 м" },
+      { label: "Основа", value: "БОПП" },
+      { label: "Клей", value: "Акриловый" },
+      { label: "Цвет", value: "Прозрачный / Коричневый" },
+    ],
+    variants: ["38 мкм / Эконом", "43 мкм / Стандарт", "47 мкм / Усиленный", "50 мкм / Премиум"],
+    minOrder: "от 1 упаковки (36 шт)",
+    inStock: true,
+  },
+  {
+    id: "tape-color",
+    title: "Скотч цветной / сигнальный",
+    category: "Клейкая лента",
+    image: IMG_TAPE,
+    shortDesc: "Для маркировки, брендирования и сигнальной обмотки палет",
+    specs: [
+      { label: "Толщина", value: "45 мкм" },
+      { label: "Ширина", value: "48 мм" },
+      { label: "Намотка", value: "66 м" },
+      { label: "Основа", value: "БОПП" },
+      { label: "Клей", value: "Акриловый" },
+      { label: "Цвета", value: "Красный, жёлтый, зелёный, синий, белый, чёрный" },
+    ],
+    variants: ["Цветной однотонный", "Сигнальный «ОСТОРОЖНО»", "С логотипом (под заказ)"],
+    minOrder: "от 1 упаковки (36 шт)",
+    inStock: true,
+  },
+  {
+    id: "box-standard",
+    title: "Гофрокороб четырёхклапанный",
+    category: "Гофрокороба",
+    image: IMG_BOXES,
+    badge: "Под WB / Ozon",
+    shortDesc: "Стандартные размеры для маркетплейсов и e-commerce отправлений",
+    specs: [
+      { label: "Материал", value: "Гофрокартон Т-23 / Т-24" },
+      { label: "Слои", value: "Трёхслойный" },
+      { label: "Цвет", value: "Бурый (крафт)" },
+      { label: "Тип", value: "Четырёхклапанный" },
+      { label: "Сертификат", value: "ГОСТ" },
+      { label: "Печать", value: "Под заказ (от 500 шт)" },
+    ],
+    variants: [
+      "200×150×100 мм",
+      "300×200×150 мм",
+      "400×300×200 мм",
+      "600×400×400 мм (Фулфилмент)",
+    ],
+    minOrder: "от 10 шт",
+    inStock: true,
+  },
+  {
+    id: "box-reinforced",
+    title: "Гофрокороб усиленный (пятислойный)",
+    category: "Гофрокороба",
+    image: IMG_BOXES,
+    shortDesc: "Для тяжёлых грузов и транспортировки на дальние расстояния",
+    specs: [
+      { label: "Материал", value: "Гофрокартон П-32" },
+      { label: "Слои", value: "Пятислойный" },
+      { label: "Цвет", value: "Бурый (крафт)" },
+      { label: "Нагрузка", value: "До 30 кг" },
+      { label: "Тип", value: "Четырёхклапанный" },
+      { label: "Сертификат", value: "ГОСТ" },
+    ],
+    variants: [
+      "400×400×400 мм",
+      "600×400×400 мм",
+      "800×600×600 мм",
+    ],
+    minOrder: "от 10 шт",
+    inStock: true,
+  },
+  {
+    id: "bubble-wrap",
+    title: "Пузырчатая плёнка ВП",
+    category: "Пузырчатая плёнка",
+    image: IMG_STRETCH,
+    shortDesc: "Двухслойная воздушно-пузырьковая плёнка для защиты хрупких товаров",
+    specs: [
+      { label: "Тип", value: "Двухслойная (ВП-75)" },
+      { label: "Диаметр пузырька", value: "10 мм" },
+      { label: "Высота пузырька", value: "4 мм" },
+      { label: "Ширина", value: "1.2 м / 1.5 м" },
+      { label: "Длина рулона", value: "50 м / 100 м" },
+      { label: "Плотность", value: "75 г/м²" },
+    ],
+    variants: ["1.2 м × 50 м", "1.2 м × 100 м", "1.5 м × 50 м", "1.5 м × 100 м"],
+    minOrder: "от 1 рулона",
+    inStock: true,
+  },
+  {
+    id: "dispenser",
+    title: "Диспенсер для скотча",
+    category: "Расходники",
+    image: IMG_TAPE,
+    shortDesc: "Ручной диспенсер-пистолет для быстрой работы со скотчем 48-50 мм",
+    specs: [
+      { label: "Ширина ленты", value: "48–50 мм" },
+      { label: "Материал", value: "Пластик + металл" },
+      { label: "Тип ножа", value: "Зубчатый" },
+      { label: "Вес", value: "350 г" },
+      { label: "Цвет", value: "Синий / Красный" },
+      { label: "Ресурс", value: "10 000+ отрезов" },
+    ],
+    variants: ["Эконом (пластик)", "Стандарт (усиленный)", "Премиум (металл)"],
+    minOrder: "от 1 шт",
+    inStock: true,
+  },
+];
+
+const categories = ["Все", ...Array.from(new Set(products.map((p) => p.category)))];
 
 const segments = [
   { icon: "ShoppingCart", label: "E-commerce", desc: "Упаковка для интернет-магазинов и доставки" },
@@ -33,39 +232,6 @@ const advantages = [
   { icon: "PenTool", title: "Нестандартная упаковка", desc: "Разработка под ваши задачи" },
 ];
 
-const catalog = [
-  {
-    title: "Стретч-плёнка",
-    icon: "ScrollText",
-    items: ["Ручная 1.8 / 2.0", "Машинная", "Джамбо-роллы", "Private label"],
-  },
-  {
-    title: "Клейкая лента (скотч)",
-    icon: "Tape",
-    items: ["38 мкм", "43 мкм", "47 мкм", "50 мкм", "Цветной", "Сигнальный"],
-  },
-  {
-    title: "Пузырчатая плёнка",
-    icon: "Circle",
-    items: ["Ширина 1.2 м", "Ширина 1.5 м", "Разные метражи"],
-  },
-  {
-    title: "Гофрокороба",
-    icon: "Box",
-    items: ["Стандартные", "Под заказ", "Усиленные"],
-  },
-  {
-    title: "Джамбо-роллы",
-    icon: "Disc",
-    items: ["Стретч-плёнка", "Клейкая лента", "Под нарезку"],
-  },
-  {
-    title: "Расходники",
-    icon: "Layers",
-    items: ["Стяжки", "Маркеры", "Ножи для плёнки", "Диспенсеры"],
-  },
-];
-
 const leadMagnets = [
   { icon: "Calculator", title: "Рассчитать фуру", desc: "Бесплатный расчёт фурной поставки с учётом всех позиций" },
   { icon: "FileText", title: "Получить прайс", desc: "Актуальный прайс-лист на всю линейку продукции" },
@@ -76,10 +242,23 @@ const leadMagnets = [
 const Index = () => {
   const [modal, setModal] = useState<string | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("Все");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedVariant, setSelectedVariant] = useState<number>(0);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenu(false);
+  };
+
+  const filteredProducts =
+    activeCategory === "Все"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
+
+  const openProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setSelectedVariant(0);
   };
 
   return (
@@ -130,10 +309,7 @@ const Index = () => {
       {/* Hero */}
       <section id="hero" className="relative pt-16 overflow-hidden">
         <div className="absolute inset-0 bg-navy" />
-        <div
-          className="absolute inset-0 opacity-20 bg-cover bg-center"
-          style={{ backgroundImage: `url(${HERO_IMG})` }}
-        />
+        <div className="absolute inset-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url(${HERO_IMG})` }} />
         <div className="relative container py-24 md:py-36 lg:py-44">
           <div className="max-w-2xl space-y-6">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm text-white/90">
@@ -147,21 +323,12 @@ const Index = () => {
               Малые партии, честная цена, отгрузка в день заказа до&nbsp;15:00. Работаем с e-commerce, производствами и торговыми компаниями.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <Button
-                onClick={() => setModal("price")}
-                size="lg"
-                className="bg-kraft hover:bg-kraft/90 text-white text-base px-8"
-              >
+              <Button onClick={() => setModal("price")} size="lg" className="bg-kraft hover:bg-kraft/90 text-white text-base px-8">
                 Получить оптовый прайс
                 <Icon name="ArrowRight" size={18} className="ml-2" />
               </Button>
-              <Button
-                onClick={() => setModal("calc")}
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 text-base px-8"
-              >
-                Рассчитать поставку
+              <Button onClick={() => scrollTo("catalog")} size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-base px-8">
+                Смотреть каталог
               </Button>
             </div>
             <div className="flex items-center gap-6 pt-4 text-sm text-white/60">
@@ -186,11 +353,7 @@ const Index = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {segments.map((seg) => (
-              <div
-                key={seg.label}
-                className="group p-6 bg-card rounded-lg border hover:border-kraft/40 hover:shadow-lg transition-all cursor-pointer"
-                onClick={() => setModal("price")}
-              >
+              <div key={seg.label} className="group p-6 bg-card rounded-lg border hover:border-kraft/40 hover:shadow-lg transition-all cursor-pointer" onClick={() => setModal("price")}>
                 <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center mb-4 group-hover:bg-kraft/10 transition-colors">
                   <Icon name={seg.icon} size={20} className="text-navy group-hover:text-kraft transition-colors" />
                 </div>
@@ -224,40 +387,88 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Catalog */}
+      {/* ========== CATALOG ========== */}
       <section id="catalog" className="py-20 md:py-28">
         <div className="container">
-          <div className="max-w-xl mb-12">
+          <div className="max-w-xl mb-10">
             <p className="text-kraft font-semibold text-sm uppercase tracking-wider mb-3">Продукция</p>
-            <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">Каталог</h2>
-            <p className="text-muted-foreground">Без розничных цен — только оптовые условия под ваш объём</p>
+            <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">Каталог товаров</h2>
+            <p className="text-muted-foreground">Нажмите на карточку, чтобы увидеть характеристики, фото и варианты</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {catalog.map((cat) => (
-              <div key={cat.title} className="bg-card rounded-lg border p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                    <Icon name={cat.icon} size={20} className="text-navy" />
-                  </div>
-                  <h3 className="font-semibold text-lg text-foreground">{cat.title}</h3>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  {cat.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="w-1 h-1 rounded-full bg-kraft" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  variant="outline"
-                  onClick={() => setModal("price")}
-                  className="w-full border-navy/20 text-navy hover:bg-navy hover:text-white"
-                >
-                  Запросить цену
-                </Button>
-              </div>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === cat
+                    ? "bg-navy text-white shadow-md"
+                    : "bg-muted text-muted-foreground hover:bg-navy/10 hover:text-foreground"
+                }`}
+              >
+                {cat}
+              </button>
             ))}
+          </div>
+
+          {/* Product Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProducts.map((product) => (
+              <button
+                key={product.id}
+                onClick={() => openProduct(product)}
+                className="group text-left bg-card rounded-xl border overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {product.badge && (
+                    <Badge className="absolute top-3 left-3 bg-kraft text-white border-0 shadow-md">
+                      {product.badge}
+                    </Badge>
+                  )}
+                  {product.inStock && (
+                    <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-xs font-medium text-green-700">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                      В наличии
+                    </div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-medium text-kraft uppercase tracking-wider mb-1.5">
+                    {product.category}
+                  </p>
+                  <h3 className="font-semibold text-foreground text-lg mb-2 leading-snug">
+                    {product.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                    {product.shortDesc}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      {product.minOrder}
+                    </span>
+                    <span className="flex items-center gap-1 text-sm text-navy font-medium group-hover:text-kraft transition-colors">
+                      Подробнее
+                      <Icon name="ArrowRight" size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-muted-foreground mb-4">Не нашли нужную позицию? Мы работаем с 200+ артикулами</p>
+            <Button onClick={() => setModal("price")} size="lg" className="bg-navy hover:bg-navy-light text-white">
+              Запросить полный прайс-лист
+              <Icon name="ArrowRight" size={18} className="ml-2" />
+            </Button>
           </div>
         </div>
       </section>
@@ -268,20 +479,10 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-kraft font-semibold text-sm uppercase tracking-wider mb-3">Для крупных клиентов</p>
-              <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-6">
-                Системное снабжение вашего производства
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Выстраиваем долгосрочное партнёрство: от фиксации цены до резервирования объёмов на складе под ваши потребности.
-              </p>
+              <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-6">Системное снабжение вашего производства</h2>
+              <p className="text-muted-foreground mb-8">Выстраиваем долгосрочное партнёрство: от фиксации цены до резервирования объёмов на складе под ваши потребности.</p>
               <div className="space-y-4">
-                {[
-                  "Регулярные поставки по графику",
-                  "Фиксация цены на период договора",
-                  "Резервирование объёма на складе",
-                  "Работа по договору с отсрочкой платежа",
-                  "Разработка нестандартных конструкций",
-                ].map((item) => (
+                {["Регулярные поставки по графику", "Фиксация цены на период договора", "Резервирование объёма на складе", "Работа по договору с отсрочкой платежа", "Разработка нестандартных конструкций"].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-kraft/10 flex items-center justify-center flex-shrink-0">
                       <Icon name="Check" size={14} className="text-kraft" />
@@ -290,11 +491,7 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-              <Button
-                onClick={() => setModal("kp")}
-                size="lg"
-                className="mt-8 bg-navy hover:bg-navy-light text-white"
-              >
+              <Button onClick={() => setModal("kp")} size="lg" className="mt-8 bg-navy hover:bg-navy-light text-white">
                 Запросить КП
                 <Icon name="ArrowRight" size={18} className="ml-2" />
               </Button>
@@ -326,19 +523,14 @@ const Index = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {leadMagnets.map((lm) => (
-              <button
-                key={lm.title}
-                onClick={() => setModal(lm.title)}
-                className="text-left p-6 bg-card rounded-lg border hover:border-kraft/40 hover:shadow-lg transition-all group"
-              >
+              <button key={lm.title} onClick={() => setModal(lm.title)} className="text-left p-6 bg-card rounded-lg border hover:border-kraft/40 hover:shadow-lg transition-all group">
                 <div className="w-12 h-12 rounded-lg bg-kraft/10 flex items-center justify-center mb-4 group-hover:bg-kraft/20 transition-colors">
                   <Icon name={lm.icon} size={22} className="text-kraft" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">{lm.title}</h3>
                 <p className="text-sm text-muted-foreground">{lm.desc}</p>
                 <span className="inline-flex items-center gap-1 text-sm text-kraft font-medium mt-3">
-                  Оставить заявку
-                  <Icon name="ArrowRight" size={14} />
+                  Оставить заявку <Icon name="ArrowRight" size={14} />
                 </span>
               </button>
             ))}
@@ -349,28 +541,11 @@ const Index = () => {
       {/* CTA */}
       <section className="py-20 md:py-28 bg-navy">
         <div className="container text-center">
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 text-balance">
-            Готовы обсудить поставку?
-          </h2>
-          <p className="text-white/60 mb-8 max-w-lg mx-auto">
-            Оставьте заявку — менеджер свяжется в течение 15 минут, рассчитает объём и подготовит индивидуальное предложение.
-          </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 text-balance">Готовы обсудить поставку?</h2>
+          <p className="text-white/60 mb-8 max-w-lg mx-auto">Оставьте заявку — менеджер свяжется в течение 15 минут, рассчитает объём и подготовит индивидуальное предложение.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              onClick={() => setModal("price")}
-              size="lg"
-              className="bg-kraft hover:bg-kraft/90 text-white text-base px-8"
-            >
-              Получить прайс
-            </Button>
-            <Button
-              onClick={() => setModal("kp")}
-              size="lg"
-              variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 text-base px-8"
-            >
-              Запросить КП
-            </Button>
+            <Button onClick={() => setModal("price")} size="lg" className="bg-kraft hover:bg-kraft/90 text-white text-base px-8">Получить прайс</Button>
+            <Button onClick={() => setModal("kp")} size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-base px-8">Запросить КП</Button>
           </div>
         </div>
       </section>
@@ -383,64 +558,38 @@ const Index = () => {
               <p className="text-kraft font-semibold text-sm uppercase tracking-wider mb-3">Контакты</p>
               <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-6">Свяжитесь с нами</h2>
               <div className="space-y-5">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center flex-shrink-0">
-                    <Icon name="MapPin" size={18} className="text-navy" />
+                {[
+                  { icon: "MapPin", label: "Адрес", value: "г. Уфа, Республика Башкортостан" },
+                  { icon: "Phone", label: "Телефон", value: "+7 (999) 123-45-67", href: "tel:+79991234567" },
+                  { icon: "Mail", label: "E-mail", value: "info@bazaupakovki.ru", href: "mailto:info@bazaupakovki.ru" },
+                  { icon: "Clock", label: "Режим работы", value: "Пн–Пт: 9:00–18:00" },
+                ].map((c) => (
+                  <div key={c.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center flex-shrink-0">
+                      <Icon name={c.icon} size={18} className="text-navy" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground">{c.label}</p>
+                      {c.href ? (
+                        <a href={c.href} className="text-sm text-kraft hover:underline">{c.value}</a>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">{c.value}</p>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-foreground">Адрес</p>
-                    <p className="text-sm text-muted-foreground">г. Уфа, Республика Башкортостан</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Phone" size={18} className="text-navy" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Телефон</p>
-                    <a href="tel:+79991234567" className="text-sm text-kraft hover:underline">+7 (999) 123-45-67</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Mail" size={18} className="text-navy" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">E-mail</p>
-                    <a href="mailto:info@bazaupakovki.ru" className="text-sm text-kraft hover:underline">info@bazaupakovki.ru</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Clock" size={18} className="text-navy" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Режим работы</p>
-                    <p className="text-sm text-muted-foreground">Пн–Пт: 9:00–18:00</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="bg-card rounded-lg border p-6 md:p-8">
               <h3 className="font-semibold text-lg text-foreground mb-1">Быстрая заявка</h3>
               <p className="text-sm text-muted-foreground mb-6">Оставьте контакты — перезвоним за 15 минут</p>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setModal("sent");
-                }}
-                className="space-y-4"
-              >
+              <form onSubmit={(e) => { e.preventDefault(); setModal("sent"); }} className="space-y-4">
                 <Input placeholder="Ваше имя" required />
                 <Input placeholder="Телефон" type="tel" required />
                 <Input placeholder="Компания" />
                 <Textarea placeholder="Что вас интересует?" rows={3} />
-                <Button type="submit" className="w-full bg-navy hover:bg-navy-light text-white">
-                  Отправить заявку
-                </Button>
-                <p className="text-xs text-muted-foreground text-center">
-                  Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных
-                </p>
+                <Button type="submit" className="w-full bg-navy hover:bg-navy-light text-white">Отправить заявку</Button>
+                <p className="text-xs text-muted-foreground text-center">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</p>
               </form>
             </div>
           </div>
@@ -456,50 +605,162 @@ const Index = () => {
             </div>
             <span className="font-bold text-navy">БазаУпаковки</span>
           </div>
-          <p className="text-sm text-muted-foreground">
-            © 2025 БазаУпаковки. Оптовые поставки упаковочных материалов в Уфе.
-          </p>
+          <p className="text-sm text-muted-foreground">© 2025 БазаУпаковки. Оптовые поставки упаковочных материалов в Уфе.</p>
           <a href="tel:+79991234567" className="text-sm font-medium text-foreground">+7 (999) 123-45-67</a>
         </div>
       </footer>
 
-      {/* Modal */}
-      <Dialog open={modal !== null && modal !== "sent"} onOpenChange={() => setModal(null)}>
+      {/* ===== PRODUCT DETAIL MODAL ===== */}
+      <Dialog open={selectedProduct !== null} onOpenChange={() => setSelectedProduct(null)}>
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto p-0">
+          {selectedProduct && (
+            <>
+              <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                <img
+                  src={selectedProduct.image}
+                  alt={selectedProduct.title}
+                  className="w-full h-full object-cover"
+                />
+                {selectedProduct.badge && (
+                  <Badge className="absolute top-4 left-4 bg-kraft text-white border-0 shadow-md text-sm">
+                    {selectedProduct.badge}
+                  </Badge>
+                )}
+                {selectedProduct.inStock && (
+                  <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 text-sm font-medium text-green-700">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    В наличии
+                  </div>
+                )}
+              </div>
+
+              <div className="p-6 md:p-8 space-y-6">
+                <div>
+                  <p className="text-xs font-semibold text-kraft uppercase tracking-wider mb-2">
+                    {selectedProduct.category}
+                  </p>
+                  <DialogHeader>
+                    <DialogTitle className="text-xl md:text-2xl font-bold text-foreground leading-snug">
+                      {selectedProduct.title}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <p className="text-muted-foreground mt-2">
+                    {selectedProduct.shortDesc}
+                  </p>
+                </div>
+
+                {/* Specs Table */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Icon name="ClipboardList" size={16} className="text-navy" />
+                    Характеристики
+                  </h4>
+                  <div className="rounded-lg border overflow-hidden">
+                    {selectedProduct.specs.map((spec, i) => (
+                      <div
+                        key={spec.label}
+                        className={`flex items-center justify-between px-4 py-3 text-sm ${
+                          i % 2 === 0 ? "bg-muted/50" : "bg-card"
+                        }`}
+                      >
+                        <span className="text-muted-foreground">{spec.label}</span>
+                        <span className="font-medium text-foreground">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Variants */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Icon name="Layers" size={16} className="text-navy" />
+                    Варианты
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProduct.variants.map((v, i) => (
+                      <button
+                        key={v}
+                        onClick={() => setSelectedVariant(i)}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+                          selectedVariant === i
+                            ? "bg-navy text-white border-navy shadow-md"
+                            : "bg-card text-foreground border-border hover:border-navy/40"
+                        }`}
+                      >
+                        {v}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Min Order */}
+                <div className="flex items-center gap-3 bg-secondary/60 rounded-lg px-4 py-3">
+                  <Icon name="Info" size={16} className="text-kraft flex-shrink-0" />
+                  <span className="text-sm text-foreground">
+                    Минимальный заказ: <span className="font-semibold">{selectedProduct.minOrder}</span>
+                  </span>
+                </div>
+
+                {/* CTA */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Button
+                    onClick={() => {
+                      setSelectedProduct(null);
+                      setModal("price");
+                    }}
+                    className="flex-1 bg-kraft hover:bg-kraft/90 text-white"
+                    size="lg"
+                  >
+                    <Icon name="FileText" size={18} className="mr-2" />
+                    Запросить цену
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setSelectedProduct(null);
+                      setModal("sample");
+                    }}
+                    variant="outline"
+                    className="flex-1 border-navy/20 text-navy hover:bg-navy hover:text-white"
+                    size="lg"
+                  >
+                    <Icon name="PackageOpen" size={18} className="mr-2" />
+                    Получить образец
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Lead Form Modal */}
+      <Dialog open={modal !== null && modal !== "sent" && selectedProduct === null} onOpenChange={() => setModal(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>
               {modal === "price" && "Получить оптовый прайс"}
               {modal === "calc" && "Рассчитать поставку"}
               {modal === "kp" && "Запросить КП"}
+              {modal === "sample" && "Получить образец"}
               {modal === "Рассчитать фуру" && "Рассчитать фурную поставку"}
               {modal === "Получить прайс" && "Получить прайс-лист"}
               {modal === "Запросить КП" && "Запросить КП"}
               {modal === "Получить образец" && "Получить образец"}
             </DialogTitle>
           </DialogHeader>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setModal("sent");
-            }}
-            className="space-y-4 pt-2"
-          >
+          <form onSubmit={(e) => { e.preventDefault(); setModal("sent"); }} className="space-y-4 pt-2">
             <Input placeholder="Ваше имя" required />
             <Input placeholder="Телефон" type="tel" required />
             <Input placeholder="Компания" />
             <Textarea placeholder="Комментарий к заявке" rows={3} />
-            <Button type="submit" className="w-full bg-kraft hover:bg-kraft/90 text-white">
-              Отправить
-            </Button>
-            <p className="text-xs text-muted-foreground text-center">
-              Перезвоним в течение 15 минут
-            </p>
+            <Button type="submit" className="w-full bg-kraft hover:bg-kraft/90 text-white">Отправить</Button>
+            <p className="text-xs text-muted-foreground text-center">Перезвоним в течение 15 минут</p>
           </form>
         </DialogContent>
       </Dialog>
 
       {/* Success Modal */}
-      <Dialog open={modal === "sent"} onOpenChange={() => setModal(null)}>
+      <Dialog open={modal === "sent" && selectedProduct === null} onOpenChange={() => setModal(null)}>
         <DialogContent className="sm:max-w-sm text-center">
           <div className="py-6 space-y-4">
             <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto">
@@ -507,9 +768,7 @@ const Index = () => {
             </div>
             <h3 className="text-xl font-bold text-foreground">Заявка отправлена</h3>
             <p className="text-muted-foreground">Менеджер свяжется с вами в течение 15 минут в рабочее время</p>
-            <Button onClick={() => setModal(null)} variant="outline" className="mt-2">
-              Закрыть
-            </Button>
+            <Button onClick={() => setModal(null)} variant="outline" className="mt-2">Закрыть</Button>
           </div>
         </DialogContent>
       </Dialog>
