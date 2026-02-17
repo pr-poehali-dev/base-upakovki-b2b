@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { IMaskInput } from "react-imask";
 import Icon from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -738,9 +738,12 @@ const Index = () => {
           </DialogHeader>
           <form onSubmit={(e) => { e.preventDefault(); setModal("sent"); }} className="space-y-4 pt-2">
             <Input placeholder="Ваше имя" required />
-            <Input placeholder="Телефон" type="tel" required />
-            <Input placeholder="Компания" />
-            <Textarea placeholder="Комментарий к заявке" rows={3} />
+            <IMaskInput
+              mask="+{7} (000) 000-00-00"
+              placeholder="+7 (___) ___-__-__"
+              required
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+            />
             <Button type="submit" className="w-full bg-kraft hover:bg-kraft/90 text-white">Отправить</Button>
             <p className="text-xs text-muted-foreground text-center">Перезвоним в течение 15 минут</p>
           </form>
