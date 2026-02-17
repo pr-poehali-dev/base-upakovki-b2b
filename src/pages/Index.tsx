@@ -578,9 +578,12 @@ const Index = () => {
               <p className="text-sm text-muted-foreground mb-6">Оставьте контакты — перезвоним за 15 минут</p>
               <form onSubmit={(e) => { e.preventDefault(); setModal("sent"); }} className="space-y-4">
                 <Input placeholder="Ваше имя" required />
-                <Input placeholder="Телефон" type="tel" required />
-                <Input placeholder="Компания" />
-                <Textarea placeholder="Что вас интересует?" rows={3} />
+                <IMaskInput
+                  mask="+{7} (000) 000-00-00"
+                  placeholder="+7 (___) ___-__-__"
+                  required
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                />
                 <Button type="submit" className="w-full bg-navy hover:bg-navy-light text-white">Отправить заявку</Button>
                 <p className="text-xs text-muted-foreground text-center">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</p>
               </form>
